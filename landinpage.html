@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey web application </title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+  <header>
+  <div id="title"><h1>Survey Form</h1>
+    </header>
+
+<form action="registration.php" id="survey-form" method="post">
+
+  <div id="description"> Let us know how we can improve our service</div><br>
+
+  <fieldset class="fieldset">
+
+    <div class="sub-group">
+      <label class="left" id="name-label" for="surname">*Surname:</label>
+    <input type="text" name="customer-name" class="right input-field" id="surname" placeholder="Enter your surame" required>
+    </div>
+
+    <div class="sub-group">
+      <label class="left" id="name-label" for="name">*First Name:</label>
+    <input type="text" name="customer-name" class="right input-field" placeholder="Enter your first name" id="name" required>
+    </div>
+
+    <div class="sub-group">
+      <label  class="left" id="number-label" for="number">*Age:</label>
+    <input type="number" name="Age" placeholder="Age" min="5" max="125" class="right input-field" id="number">
+  </div>
+
+    <div class="sub-group">
+      <label class="left" id="handphone-label" for="contact">*Contact:</label>
+
+    <input type="text" placeholder="Phone Number" class="right input-field" id="contact">
+  </div>
+
+  
+
+    
+  </fieldset>
+
+  <fieldset class="fieldset">
+<div class="sub-group">
+<label class="left">
+  *What is your favourite food? (You can choose more than 1 answer)</label>
+
+ <ul style="list-style: none;" class="right">
+
+   <li class="checkbox"><label><input type="checkbox" name="game" value="pizza" >Pizza</label></li>
+     <li class="checkbox"><label><input type="checkbox" name="game" value="pasta">Pasta</label></li>
+     <li class="checkbox"><label><input type="checkbox" name="game" value="pap" >Pap and Wors<label></li>
+     <li class="checkbox"><label><input type="checkbox" name="game" value="chicken" >Chicken stir fry</label></li>
+     <li class="checkbox"><label><input type="checkbox" name="game" value="beeef" >Beef stir fry</label></li>
+     <li class="checkbox"><label><input type="checkbox" name="game" value="other" >Other</label></li>
+       </ul></div></fieldset>
+
+    <fieldset class="fieldset">
+  <div class="sub-group">
+  <label class="left" id="left-radio">On the scale of 1 to 5 indicate whether you strongly agree to strongly disagree</label>
+
+   <ul style="list-style: none" class="right">
+       <li class="radio"><label><input name="radio-buttons" value="1" type="radio" class="recommendation">Strongly Agree</label></li>
+       <li class="radio"><label><input name="radio-buttons" value="2" type="radio" class="recommendation">Agree</label></li>
+       <li class="radio"><label><input name="radio-buttons" value="3" type="radio" class="recommendation">Neutral</label></li>
+   </ul>
+  </div></fieldset>
+
+     <fieldset class="fieldset">
+  
+   <br></br>
+
+  <button id="submit" type="submit">Submit</button>
+       </div></fieldset>
+
+</form>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#register').click(function(e){
+
+			var valid = this.form.checkValidity();
+
+			if(valid){
+
+
+			var surname 	= $('#surname').val();
+			var name	= $('#name').val();
+			var age 		= $('#age').val();
+			var contact = $('#contact').val();
+			
+			
+
+				e.preventDefault();	
+
+				$.ajax({
+					type: 'POST',
+					url: 'process.php',
+					data: {surname: surname,name: name,age: age,contact: contact},
+					success: function(data){
+					Swal.fire({
+								'title': 'Successful',
+								'text': data,
+								'type': 'success'
+								})
+							
+					},
+					error: function(data){
+						Swal.fire({
+								'title': 'Errors',
+								'text': 'There were errors while saving the data.',
+								'type': 'error'
+								})
+					}
+				});
+
+				
+			}else{
+				
+			}
+
+			
+
+
+
+		});		
+
+		
+	});
+	
+</script>
+
+
+
+
+
+  </body>
+</html>
